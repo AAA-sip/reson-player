@@ -1,0 +1,53 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  # plugins:
+  #   - custom_lint
+
+  exclude:
+    - "**/*.g.dart"
+    - "lib/modules/parsing/**"
+
+  errors:
+    always_specify_types: info
+    annotate_overrides: warning
+    avoid_print: warning
+    camel_case_extensions: warning
+    camel_case_types: warning
+    constant_identifier_names: warning
+    directives_ordering: warning
+    empty_catches: warning
+    parameter_assignments: warning
+    prefer_const_constructors: warning
+    prefer_final_locals: warning
+    prefer_function_declarations_over_variables: warning
+    prefer_is_empty: warning
+    prefer_is_not_empty: warning
+    prefer_relative_imports: warning
+    prefer_single_quotes: warning
+    require_trailing_commas: warning
+    sort_child_properties_last: warning
+    unnecessary_underscores: warning
+
+linter:
+  rules:
+    - always_specify_types
+    - annotate_overrides
+    - avoid_multiple_declarations_per_line
+    - avoid_print
+    - camel_case_extensions
+    - camel_case_types
+    - constant_identifier_names
+    - directives_ordering
+    - empty_catches
+    - parameter_assignments
+    - prefer_const_constructors
+    - prefer_final_locals
+    - prefer_function_declarations_over_variables
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_relative_imports
+    - prefer_single_quotes
+    - require_trailing_commas
+    - sort_child_properties_last
+    - unnecessary_underscores

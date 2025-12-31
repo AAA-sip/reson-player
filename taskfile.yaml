@@ -1,0 +1,6 @@
+version: "3"
+
+tasks:
+  emulator-da:
+    cmds:
+      - flutter emulators --launch da
