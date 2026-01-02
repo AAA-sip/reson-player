@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core/route/app_router.dart';
 
-class ResonApp extends ConsumerWidget {
+import 'core/route/app_router.dart';
+import 'core/theme/light.dart';
+
+class ResonApp extends StatelessWidget {
   const ResonApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
-
-    return MaterialApp.router(
-      title: 'Reson',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      routerConfig: router,
-    );
-  }
+  Widget build(_) =>
+      //
+      MaterialApp.router(
+        title: 'Reson',
+        theme: lightTheme,
+        routerConfig: router,
+        debugShowCheckedModeBanner: false,
+      );
 }

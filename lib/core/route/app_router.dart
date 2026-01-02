@@ -1,30 +1,48 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/home/ui/screens/home_screen.dart';
-import '../../features/player/ui/screens/player_screen.dart';
-import '../../features/search/ui/screens/search_screen.dart';
-import '../../features/settings/ui/screens/settings_screen.dart';
 
-final routerProvider = Provider<GoRouter>((ref) {
-  return GoRouter(
-    initialLocation: '/',
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const HomeScreen(),
-      ),
-      GoRoute(
-        path: '/search',
-        builder: (context, state) => const SearchScreen(),
-      ),
-      GoRoute(
-        path: '/settings',
-        builder: (context, state) => const SettingsScreen(),
-      ),
-      GoRoute(
-        path: '/player',
-        builder: (context, state) => const PlayerScreen(),
-      ),
-    ],
-  );
-});
+import 'screems.dart';
+
+enum AppRoutes {
+  home('/home', HomeScreen()),
+  search('/search', SearchScreen()),
+  settings('/settings', SettingsScreen()),
+  player('/player', PlayerScreen());
+
+  final String path;
+  final Widget screen;
+
+  const AppRoutes(this.path, this.screen);
+
+  String get name => toString().split('.').last;
+}
+
+final GoRouter router = GoRouter(
+  initialLocation: AppRoutes.home.path,
+  routes: <RouteBase>[
+    GoRoute(
+      path: AppRoutes.home.path,
+      builder: (_, _) => AppRoutes.home.screen,
+    ),
+    GoRoute(
+      path: AppRoutes.search.path,
+      builder: (_, _) => AppRoutes.search.screen,
+    ),
+    GoRoute(
+      path: AppRoutes.settings.path,
+      builder: (_, _) => AppRoutes.settings.screen,
+    ),
+    GoRoute(
+      path: AppRoutes.player.path,
+      builder: (_, _) => AppRoutes.player.screen,
+    ),
+  ],
+);
+
+/// Mock screen for AppRoutes
+class MockScreen extends StatelessWidget {
+  const MockScreen({super.key});
+
+  @override
+  Widget build(_) => const Scaffold(body: Center(child: Text('Mock Screen')));
+}
