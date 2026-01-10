@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'core/route/app_router.dart';
-import 'core/theme/light.dart';
+import 'src/core/route/app_router.dart';
+import 'src/core/theme/light.dart';
 
 class ResonApp extends StatelessWidget {
   const ResonApp({super.key});
