@@ -7,29 +7,23 @@ import '../../domain/entity/playlist_entity.dart';
 import '../../domain/entity/song_entity.dart';
 import '../../domain/providers.dart';
 
-// --- UI State Providers ---
-// Эти провайдеры управляют состоянием экрана. Они:
-// 1. Проверяют разрешения через Core Service.
-// 2. Запрашивают данные через Domain Repo.
-
 final songsProvider = FutureProvider<List<SongEntity>>((ref) async {
-  // 1. Проверка прав
   final permissionManager = ref.watch(permissionManagerProvider);
-  final bool hasPermission = await permissionManager.checkAndRequestPermissions();
+  final bool hasPermission = await permissionManager
+      .checkAndRequestPermissions();
 
   if (!hasPermission) {
-    // Можно вернуть пустой список или выбросить ошибку для обработки UI
     return [];
   }
 
-  // 2. Получение данных
   final repo = ref.watch(musicRepoProvider);
   return repo.getSongs();
 });
 
 final artistsProvider = FutureProvider<List<ArtistEntity>>((ref) async {
   final permissionManager = ref.watch(permissionManagerProvider);
-  final bool hasPermission = await permissionManager.checkAndRequestPermissions();
+  final bool hasPermission = await permissionManager
+      .checkAndRequestPermissions();
 
   if (!hasPermission) return [];
 
@@ -39,7 +33,8 @@ final artistsProvider = FutureProvider<List<ArtistEntity>>((ref) async {
 
 final albumsProvider = FutureProvider<List<AlbumEntity>>((ref) async {
   final permissionManager = ref.watch(permissionManagerProvider);
-  final bool hasPermission = await permissionManager.checkAndRequestPermissions();
+  final bool hasPermission = await permissionManager
+      .checkAndRequestPermissions();
 
   if (!hasPermission) return [];
 
@@ -49,7 +44,8 @@ final albumsProvider = FutureProvider<List<AlbumEntity>>((ref) async {
 
 final playlistsProvider = FutureProvider<List<PlaylistEntity>>((ref) async {
   final permissionManager = ref.watch(permissionManagerProvider);
-  final bool hasPermission = await permissionManager.checkAndRequestPermissions();
+  final bool hasPermission = await permissionManager
+      .checkAndRequestPermissions();
 
   if (!hasPermission) return [];
 

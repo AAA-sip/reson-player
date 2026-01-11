@@ -33,7 +33,7 @@ class MediaStoreServiceImpl implements MediaStoreService {
         artist: song.artist ?? 'Unknown Artist',
         uri: song.data,
         duration: song.duration ?? 0,
-        imageUrl: null, // Model has nullable imageUrl
+        imageUrl: null, 
       );
     }).toList();
   }

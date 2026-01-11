@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'src/core/deps/init.dart';
 import 'src/core/route/app_router.dart';
-import 'src/core/theme/light.dart';
+import 'src/core/theme/dark.dart';
 
 class ResonApp extends StatelessWidget {
   const ResonApp({super.key});
@@ -11,8 +12,9 @@ class ResonApp extends StatelessWidget {
       //
       MaterialApp.router(
         title: 'Reson',
-        theme: lightTheme,
+        theme: darkTheme,
         routerConfig: router,
         debugShowCheckedModeBanner: false,
+        scrollBehavior: BounceScrollBehavior(),
       );
 }
