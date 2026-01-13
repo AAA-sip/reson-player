@@ -30,6 +30,7 @@ dependencies:
       path: packages/on_audio_query
       ref: main
   permission_handler: ^12.0.1
+  material_design: ^0.28.1
 
 dev_dependencies:
   flutter_test:

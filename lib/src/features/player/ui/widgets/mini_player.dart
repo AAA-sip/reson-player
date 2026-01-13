@@ -47,8 +47,8 @@ class MiniPlayer extends ConsumerWidget {
                       value: position.inMilliseconds / duration.inMilliseconds,
                       minHeight: 2,
                       backgroundColor: Colors.transparent,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).colorScheme.primary,
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Color(0xFFD0E16C),
                       ),
                     );
                   },

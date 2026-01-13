@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       //
       Scaffold(
         appBar: AppBar(
-          title: const Text('Discover'),
+          title: const Text('Home'),
           leading: const SizedBox(),
           leadingWidth: 0,
           actions: [

@@ -29,8 +29,8 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: AppRoutes.home.path,
-      builder: (_, _) => AppRoutes.home.screen,
+      path: AppRoutes.player.path,
+      builder: (_, _) => AppRoutes.player.screen,
     ),
   ],
 );
