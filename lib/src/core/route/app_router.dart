@@ -23,6 +23,12 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: AppRoutes.settings.path,
           builder: (_, _) => AppRoutes.settings.screen,
+          routes: [
+            GoRoute(
+              path: 'theme',
+              builder: (_, _) => AppRoutes.theme.screen,
+            ),
+          ],
         ),
       ],
     ),
@@ -42,6 +48,7 @@ enum AppRoutes {
   home('/home', HomeScreen()),
   search('/search', SearchScreen()),
   settings('/settings', SettingsScreen()),
+  theme('/settings/theme', ThemeScreen()),
   player('/player', PlayerScreen());
 
   final String path;
