@@ -43,14 +43,14 @@ class SettingsAppBar extends StatelessWidget {
               child: Opacity(
                 opacity: expandedOpacity,
                 child: Transform.scale(
-                  scaleY: 1.0 + (scrollOffset < 0 ? -scrollOffset / 200 : 0.0),
+                  scaleY: 1.0 + (scrollOffset < 0 ? -scrollOffset / 70 : 0.0), // -- 
                   alignment: Alignment.topLeft,
                   child: const Text(
                     'Settings',
                     style: TextStyle(
                       fontSize: 45,
                       fontVariations: [
-                        FontVariation('wght', 900),
+                        FontVariation('wght', 700),
                         FontVariation('wdth', 150),
                         FontVariation('GRAD', 1),
                       ],
@@ -61,7 +61,7 @@ class SettingsAppBar extends StatelessWidget {
               ),
             ),
 
-            //
+            // Close Title
             Positioned(
               top: 0,
               left: 0,

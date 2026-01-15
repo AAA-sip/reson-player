@@ -11,6 +11,9 @@ class Tile extends StatefulWidget {
     required this.borderRadius,
     required this.leadingIcon,
     this.onTap,
+    this.onHighlightChanged,
+    this.isAbovePressed = false,
+    this.isBelowPressed = false,
     this.trailing,
     this.subtitle,
   });
@@ -22,6 +25,9 @@ class Tile extends StatefulWidget {
   final String? subtitle;
   final Widget? trailing;
   final VoidCallback? onTap;
+  final ValueChanged<bool>? onHighlightChanged;
+  final bool isAbovePressed;
+  final bool isBelowPressed;
 
   //
   factory Tile.list({
@@ -54,6 +60,9 @@ class Tile extends StatefulWidget {
     String? subtitle,
     Widget? trailing,
     VoidCallback? onTap,
+    ValueChanged<bool>? onHighlightChanged,
+    bool isAbovePressed = false,
+    bool isBelowPressed = false,
   }) {
     return Tile._(
       key: key,
@@ -62,6 +71,9 @@ class Tile extends StatefulWidget {
       leadingIcon: leadingIcon,
       trailing: trailing,
       onTap: onTap,
+      onHighlightChanged: onHighlightChanged,
+      isAbovePressed: isAbovePressed,
+      isBelowPressed: isBelowPressed,
       color: color,
       borderRadius: borderRadius,
     );
@@ -79,9 +91,26 @@ class _TileState extends State<Tile> {
     final theme = themeData(context);
     final colorScheme = theme.colorScheme;
 
+    BorderRadius effectiveRadius = widget.borderRadius;
+    if (widget.isAbovePressed) {
+      effectiveRadius = BorderRadius.only(
+        topLeft: const Radius.circular(20),
+        topRight: const Radius.circular(20),
+        bottomLeft: effectiveRadius.bottomLeft,
+        bottomRight: effectiveRadius.bottomRight,
+      );
+    } else if (widget.isBelowPressed) {
+      effectiveRadius = BorderRadius.only(
+        topLeft: effectiveRadius.topLeft,
+        topRight: effectiveRadius.topRight,
+        bottomLeft: const Radius.circular(20),
+        bottomRight: const Radius.circular(20),
+      );
+    }
+
     final decoration = BoxDecoration(
       color: widget.color,
-      borderRadius: _pressed ? BorderRadius.circular(28) : widget.borderRadius,
+      borderRadius: _pressed ? BorderRadius.circular(28) : effectiveRadius,
       border: Border.all(color: _pressed ? colorScheme.primary : Colors.transparent, width: 1.5),
     );
 
@@ -103,7 +132,10 @@ class _TileState extends State<Tile> {
           highlightColor: colorScheme.primary.withValues(alpha: 0.05),
           splashColor: colorScheme.primary.withValues(alpha: 0.1),
           onTap: widget.onTap,
-          onHighlightChanged: (v) => setState(() => _pressed = v),
+          onHighlightChanged: (v) {
+            setState(() => _pressed = v);
+            widget.onHighlightChanged?.call(v);
+          },
           child: Padding(
             padding: const EdgeInsets.all(22),
             child: Row(

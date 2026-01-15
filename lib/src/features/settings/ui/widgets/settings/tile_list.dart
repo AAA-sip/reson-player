@@ -3,43 +3,58 @@ import 'package:flutter/material.dart';
 import '../../../../../core/theme/theme_util.dart';
 import 'tile.dart';
 
-class TileList extends StatelessWidget {
+class TileList extends StatefulWidget {
   const TileList({super.key, required this.items});
 
   final List<Tile> items;
 
   @override
-  Widget build(BuildContext context) =>
-      //
-      ListView.separated(
-        shrinkWrap: true,
-        itemCount: items.length,
-        physics: const NeverScrollableScrollPhysics(),
-        separatorBuilder: (_, _) => Container(
-          color: themeData(context).scaffoldBackgroundColor,
-          height: 1.5,
-        ),
-        itemBuilder: (_, int index) {
-          final item = items[index];
+  State<TileList> createState() => _TileListState();
+}
 
-          return Tile.card(
-            title: item.title,
-            subtitle: item.subtitle,
-            trailing: item.trailing,
-            onTap: item.onTap,
-            color: themeData(context).colorScheme.surfaceContainer,
-            leadingIcon: item.leadingIcon,
-            borderRadius: _radiusForIndex(index),
-          );
-        },
-      );
+class _TileListState extends State<TileList> {
+  int? _pressedIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = themeData(context);
+    return ListView.separated(
+      shrinkWrap: true,
+      itemCount: widget.items.length,
+      physics: const NeverScrollableScrollPhysics(),
+      separatorBuilder: (_, int index) {
+        final isNextToPressed = _pressedIndex == index || _pressedIndex == index + 1;
+        return Container(color: isNextToPressed ? Colors.transparent : theme.scaffoldBackgroundColor, height: 1.5);
+      },
+      itemBuilder: (_, int index) {
+        final item = widget.items[index];
+
+        return Tile.card(
+          title: item.title,
+          subtitle: item.subtitle,
+          trailing: item.trailing,
+          onTap: item.onTap,
+          color: theme.colorScheme.surfaceContainer,
+          leadingIcon: item.leadingIcon,
+          borderRadius: _radiusForIndex(index),
+          onHighlightChanged: (v) {
+            setState(() {
+              _pressedIndex = v ? index : null;
+            });
+          },
+          isAbovePressed: _pressedIndex != null && _pressedIndex == index - 1,
+          isBelowPressed: _pressedIndex != null && _pressedIndex == index + 1,
+        );
+      },
+    );
+  }
 
   //
   BorderRadius _radiusForIndex(int index) {
     const extremeRadius = Radius.circular(20);
     const defaultRadius = Radius.circular(5);
 
-    if (items.length == 1) {
+    if (widget.items.length == 1) {
       return const BorderRadius.all(extremeRadius);
     }
 
@@ -52,7 +67,7 @@ class TileList extends StatelessWidget {
       );
     }
 
-    if (index == items.length - 1) {
+    if (index == widget.items.length - 1) {
       return const BorderRadius.only(
         topLeft: defaultRadius,
         topRight: defaultRadius,

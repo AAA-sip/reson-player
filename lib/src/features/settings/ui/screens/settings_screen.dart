@@ -49,7 +49,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: const EdgeInsets.only(top: _expandedHeight + 10, left: 10, right: 10, bottom: 10),
               children: [
                 //
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
+                  child: Text('Someshit', style: TextStyle(fontSize: 18)),
+                ),
                 TileList(items: _firstList()),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 12.0),
+                  child: Text('Someshit', style: TextStyle(fontSize: 18)),
+                ),
+                TileList(items: _secondList()),
               ],
             ),
             SettingsAppBar(scrollOffset: _scrollOffset),
@@ -69,6 +78,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       Tile.list(title: 'About', subtitle: 'Reson App v1.0.0', onTap: () {}, leadingIcon: Symbols.info),
       Tile.list(title: 'Language', subtitle: 'English', onTap: () {}, leadingIcon: Symbols.language),
+    ];
+  }
+
+  List<Tile> _secondList() {
+    return [
+      Tile.list(
+        title: 'Notifications',
+        subtitle: 'Enable notifications',
+        leadingIcon: Symbols.notifications,
+        onTap: () {},
+      ),
+      Tile.list(title: 'Fonts', subtitle: 'Customize fonts', onTap: () {}, leadingIcon: Symbols.text_fields),
+      Tile.list(title: 'Scale', subtitle: 'Customize scale', onTap: () {}, leadingIcon: Symbols.scale),
     ];
   }
 }

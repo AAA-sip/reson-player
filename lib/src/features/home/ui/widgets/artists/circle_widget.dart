@@ -18,7 +18,7 @@ class CircleWidget extends StatelessWidget {
       children: [
         ClipOval(
           child: Image.network(
-            imageUrl,
+            'https://utyug.info/upload/iblock/e2b/e2bc0ec35a53dedd8c0173b5443ea9c9.jpg',
             width: 80,
             height: 80,
             fit: BoxFit.cover,

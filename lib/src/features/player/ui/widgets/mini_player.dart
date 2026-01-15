@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import '../../../../core/deps/providers.dart';
 import '../../../home/domain/entity/song_entity.dart';
 
@@ -19,7 +20,8 @@ class MiniPlayer extends ConsumerWidget {
         final state = snapshot.data;
         if (state?.currentSource == null) return const SizedBox.shrink();
 
-        final song = state!.currentSource!.tag as SongEntity;
+        final mediaItem = state!.currentSource!.tag as MediaItem;
+        final song = mediaItem.extras!['song'] as SongEntity;
 
         return GestureDetector(
           onTap: () => context.push('/player'),

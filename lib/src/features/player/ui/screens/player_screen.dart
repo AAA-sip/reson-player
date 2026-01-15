@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../../../core/deps/providers.dart';
 import '../../../home/domain/entity/song_entity.dart';
@@ -24,7 +25,8 @@ class PlayerScreen extends ConsumerWidget {
           if (state?.currentSource == null) {
             return const Center(child: Text('No song playing'));
           }
-          final song = state!.currentSource!.tag as SongEntity;
+          final mediaItem = state!.currentSource!.tag as MediaItem;
+          final song = mediaItem.extras!['song'] as SongEntity;
 
           return Column(
             children: [
@@ -43,11 +45,7 @@ class PlayerScreen extends ConsumerWidget {
                         artworkFit: BoxFit.cover,
                         nullArtworkWidget: Container(
                           color: Colors.grey[900],
-                          child: const Icon(
-                            Icons.music_note,
-                            size: 100,
-                            color: Colors.white,
-                          ),
+                          child: const Icon(Icons.music_note, size: 100, color: Colors.white),
                         ),
                       ),
                     ),
@@ -76,10 +74,7 @@ class PlayerScreen extends ConsumerWidget {
                       child: CircleAvatar(
                         backgroundColor: Colors.black.withOpacity(0.3),
                         child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
+                          icon: const Icon(Icons.arrow_back, color: Colors.white),
                           onPressed: () => Navigator.pop(context),
                         ),
                       ),
@@ -137,16 +132,9 @@ class PlayerScreen extends ConsumerWidget {
                             height: 64,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 1.5,
-                              ),
+                              border: Border.all(color: Colors.white, width: 1.5),
                             ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 32,
-                            ),
+                            child: const Icon(Icons.add, color: Colors.white, size: 32),
                           ),
                         ],
                       ),
@@ -167,8 +155,7 @@ class PlayerScreen extends ConsumerWidget {
                       return StreamBuilder<PlayerState>(
                         stream: player.playerStateStream,
                         builder: (context, playerSnapshot) {
-                          final isPlaying =
-                              playerSnapshot.data?.playing ?? false;
+                          final isPlaying = playerSnapshot.data?.playing ?? false;
                           return WaveformProgressBar(
                             position: position,
                             duration: duration,
@@ -205,16 +192,11 @@ class PlayerScreen extends ConsumerWidget {
                             children: [
                               // Play/Pause Large Circle
                               GestureDetector(
-                                onTap: playing
-                                    ? audioManager.pause
-                                    : audioManager.play,
+                                onTap: playing ? audioManager.pause : audioManager.play,
                                 child: Container(
                                   width: size,
                                   height: size,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFFD0E16C),
-                                    shape: BoxShape.circle,
-                                  ),
+                                  decoration: const BoxDecoration(color: Color(0xFFD0E16C), shape: BoxShape.circle),
                                   child: Icon(
                                     playing ? Icons.pause : Icons.play_arrow,
                                     size: size * 0.45,
@@ -245,17 +227,9 @@ class PlayerScreen extends ConsumerWidget {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  _BadgeButton(
-                                    icon: Icons.shuffle,
-                                    onPressed: () {},
-                                    size: size * 0.45,
-                                  ),
+                                  _BadgeButton(icon: Icons.shuffle, onPressed: () {}, size: size * 0.45),
                                   const SizedBox(height: 12),
-                                  _CircleControlButton(
-                                    icon: Icons.queue_music,
-                                    onPressed: () {},
-                                    size: size * 0.45,
-                                  ),
+                                  _CircleControlButton(icon: Icons.queue_music, onPressed: () {}, size: size * 0.45),
                                 ],
                               ),
                             ],
@@ -285,12 +259,8 @@ class WaveConfig {
   static const double strokeWidth = 2.0; // Thickness of the lines
 
   // Animation Settings
-  static const Duration shrinkDuration = Duration(
-    milliseconds: 150,
-  ); // How fast it flattens when paused
-  static const Duration waveSpeedDuration = Duration(
-    seconds: 2,
-  ); // How fast one wave cycle moves
+  static const Duration shrinkDuration = Duration(milliseconds: 150); // How fast it flattens when paused
+  static const Duration waveSpeedDuration = Duration(seconds: 2); // How fast one wave cycle moves
 }
 
 // ---------------------
@@ -312,21 +282,16 @@ class WaveformProgressBar extends StatefulWidget {
   State<WaveformProgressBar> createState() => _WaveformProgressBarState();
 }
 
-class _WaveformProgressBarState extends State<WaveformProgressBar>
-    with TickerProviderStateMixin {
+class _WaveformProgressBarState extends State<WaveformProgressBar> with TickerProviderStateMixin {
   late AnimationController _phaseController; // Контроллер движения (прокрутки)
-  late AnimationController
-  _amplitudeController; // Контроллер высоты (сглаживания)
+  late AnimationController _amplitudeController; // Контроллер высоты (сглаживания)
 
   @override
   void initState() {
     super.initState();
 
     // 1. Анимация движения (зациклена, когда играет)
-    _phaseController = AnimationController(
-      vsync: this,
-      duration: WaveConfig.waveSpeedDuration,
-    );
+    _phaseController = AnimationController(vsync: this, duration: WaveConfig.waveSpeedDuration);
 
     // 2. Анимация высоты (плавно меняется от 0.0 до 1.0)
     _amplitudeController = AnimationController(
@@ -373,11 +338,7 @@ class _WaveformProgressBarState extends State<WaveformProgressBar>
     final width = box.size.width - 40;
 
     final newProgress = (x / width).clamp(0.0, 1.0);
-    widget.onChanged(
-      Duration(
-        milliseconds: (newProgress * widget.duration.inMilliseconds).toInt(),
-      ),
-    );
+    widget.onChanged(Duration(milliseconds: (newProgress * widget.duration.inMilliseconds).toInt()));
   }
 
   @override
@@ -387,8 +348,7 @@ class _WaveformProgressBarState extends State<WaveformProgressBar>
         : 0.0;
 
     return GestureDetector(
-      onHorizontalDragUpdate: (details) =>
-          _seek(context, details.localPosition),
+      onHorizontalDragUpdate: (details) => _seek(context, details.localPosition),
       onTapDown: (details) => _seek(context, details.localPosition),
       child: Container(
         width: double.infinity,
@@ -417,11 +377,7 @@ class _ProgressBarPainter extends CustomPainter {
   final double phaseValue; // 0.0 - 1.0 (Движение)
   final double amplitudeValue; // 0.0 - 1.0 (Множитель высоты)
 
-  _ProgressBarPainter({
-    required this.progress,
-    required this.phaseValue,
-    required this.amplitudeValue,
-  });
+  _ProgressBarPainter({required this.progress, required this.phaseValue, required this.amplitudeValue});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -473,15 +429,11 @@ class _ProgressBarPainter extends CustomPainter {
       final activePath = Path();
 
       // первая точка — уже по синусу
-      final y0 =
-          centerY +
-          currentAmplitude * sin(0 * WaveConfig.waveFrequency + waveShift);
+      final y0 = centerY + currentAmplitude * sin(0 * WaveConfig.waveFrequency + waveShift);
       activePath.moveTo(0, y0);
 
       for (double x = 1; x <= endActiveX; x += 1) {
-        final y =
-            centerY +
-            currentAmplitude * sin(x * WaveConfig.waveFrequency + waveShift);
+        final y = centerY + currentAmplitude * sin(x * WaveConfig.waveFrequency + waveShift);
         activePath.lineTo(x, y);
       }
 
@@ -492,11 +444,7 @@ class _ProgressBarPainter extends CustomPainter {
     // Начинается после отступа
     final startInactiveX = thumbX + WaveConfig.gap;
     if (startInactiveX < size.width) {
-      canvas.drawLine(
-        Offset(startInactiveX, centerY),
-        Offset(size.width, centerY),
-        inactivePaint,
-      );
+      canvas.drawLine(Offset(startInactiveX, centerY), Offset(size.width, centerY), inactivePaint);
     }
 
     // 3. РИСУЕМ ИНДИКАТОР (Вертикальная линия)
@@ -521,12 +469,7 @@ class _CapsuleButton extends StatelessWidget {
   final double height;
   final double width;
 
-  const _CapsuleButton({
-    required this.icon,
-    required this.onPressed,
-    required this.height,
-    required this.width,
-  });
+  const _CapsuleButton({required this.icon, required this.onPressed, required this.height, required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -535,10 +478,7 @@ class _CapsuleButton extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        decoration: BoxDecoration(
-          color: const Color(0xFFD0E16C),
-          borderRadius: BorderRadius.circular(width / 2),
-        ),
+        decoration: BoxDecoration(color: const Color(0xFFD0E16C), borderRadius: BorderRadius.circular(width / 2)),
         child: Icon(icon, color: Colors.black, size: width * 0.5),
       ),
     );
@@ -550,11 +490,7 @@ class _CircleControlButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double size;
 
-  const _CircleControlButton({
-    required this.icon,
-    required this.onPressed,
-    required this.size,
-  });
+  const _CircleControlButton({required this.icon, required this.onPressed, required this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -563,10 +499,7 @@ class _CircleControlButton extends StatelessWidget {
       child: Container(
         width: size,
         height: size,
-        decoration: const BoxDecoration(
-          color: Color(0xFFD0E16C),
-          shape: BoxShape.circle,
-        ),
+        decoration: const BoxDecoration(color: Color(0xFFD0E16C), shape: BoxShape.circle),
         child: Icon(icon, color: Colors.black, size: size * 0.5),
       ),
     );
@@ -578,11 +511,7 @@ class _BadgeButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double size;
 
-  const _BadgeButton({
-    required this.icon,
-    required this.onPressed,
-    required this.size,
-  });
+  const _BadgeButton({required this.icon, required this.onPressed, required this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -591,8 +520,8 @@ class _BadgeButton extends StatelessWidget {
       child: Container(
         width: size,
         height: size,
-        decoration: ShapeDecoration(
-          color: const Color(0xFFD0E16C),
+        decoration: const ShapeDecoration(
+          color: Color(0xFFD0E16C),
           shape: StarBorder.polygon(sides: 8, pointRounding: 0.4),
         ),
         child: Icon(icon, color: Colors.black, size: size * 0.45),

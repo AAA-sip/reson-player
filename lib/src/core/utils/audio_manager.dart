@@ -1,4 +1,5 @@
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import '../../features/home/domain/entity/song_entity.dart';
 
 class AudioManager {
@@ -15,7 +16,13 @@ class AudioManager {
     final audioSources = songs.map((song) {
       return AudioSource.uri(
         Uri.parse(song.uri),
-        tag: song, // Attach entity as tag to retrieve metadata later
+        tag: MediaItem(
+          id: song.id.toString(),
+          title: song.title,
+          artist: song.artist,
+          artUri: song.imageUrl != null ? Uri.parse(song.imageUrl!) : null,
+          extras: {'song': song}, // Keep original entity if needed
+        ),
       );
     }).toList();
 

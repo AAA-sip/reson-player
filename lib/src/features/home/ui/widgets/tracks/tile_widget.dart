@@ -3,13 +3,7 @@
 import 'package:flutter/material.dart';
 
 class TileWidget extends StatelessWidget {
-  const TileWidget({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    this.onTap,
-    required this.imageUrl,
-  });
+  const TileWidget({super.key, required this.title, required this.subtitle, this.onTap, required this.imageUrl});
 
   final String title;
   final String subtitle;
@@ -25,7 +19,7 @@ class TileWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
             child: Image.network(
-              imageUrl,
+              'https://utyug.info/upload/iblock/e2b/e2bc0ec35a53dedd8c0173b5443ea9c9.jpg',
               width: 50,
               height: 50,
               fit: BoxFit.cover,
@@ -48,22 +42,14 @@ class TileWidget extends StatelessWidget {
                   title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w500, fontSize: 12),
                 ),
               ],
             ),
