@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../dev/features/home/domain/mock_music_repo.dart';
 import '../../features/home/domain/providers.dart';
 
 class ProviderWidget extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_shapes/material_shapes.dart';
 
 import '../../../../../core/theme/theme_util.dart';
 
@@ -75,39 +76,45 @@ class _TileState extends State<Tile> {
 
   @override
   Widget build(BuildContext context) {
-    final currentRadius = _pressed
-        ? BorderRadius.circular(28)
-        : widget.borderRadius;
+    final theme = themeData(context);
+    final colorScheme = theme.colorScheme;
 
-    final currentBorder = _pressed
-        ? Border.all(color: themeData(context).colorScheme.primary, width: 1.5)
-        : null;
+    final decoration = BoxDecoration(
+      color: widget.color,
+      borderRadius: _pressed ? BorderRadius.circular(28) : widget.borderRadius,
+      border: Border.all(color: _pressed ? colorScheme.primary : Colors.transparent, width: 1.5),
+    );
+
+    final iconColor = _pressed ? colorScheme.primary : colorScheme.onSurfaceVariant;
+    final pillColor = _pressed ? colorScheme.primaryContainer : colorScheme.onPrimary;
+    final iconFill = _pressed ? 1.0 : 0.0;
+
+    final titleWeight = _pressed ? FontWeight.bold : FontWeight.normal;
+    final subtitleWeight = _pressed ? FontWeight.w600 : FontWeight.normal;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 120),
       curve: Curves.easeOut,
-      decoration: BoxDecoration(
-        color: widget.color,
-        borderRadius: currentRadius,
-        border: currentBorder,
-      ),
+      decoration: decoration,
       clipBehavior: Clip.antiAlias,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          // highlightColor: themeData(
-          //   context,
-          // ).colorScheme.primary.withValues(alpha: 0.05),
-          // splashColor: themeData(
-          //   context,
-          // ).colorScheme.primary.withValues(alpha: 0.1),
+          highlightColor: colorScheme.primary.withValues(alpha: 0.05),
+          splashColor: colorScheme.primary.withValues(alpha: 0.1),
           onTap: widget.onTap,
           onHighlightChanged: (v) => setState(() => _pressed = v),
           child: Padding(
             padding: const EdgeInsets.all(22),
             child: Row(
               children: [
-                Icon(widget.leadingIcon),
+                Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    MaterialShapes.pill(size: 30, color: pillColor),
+                    Icon(widget.leadingIcon, fill: iconFill, color: iconColor),
+                  ],
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -117,18 +124,19 @@ class _TileState extends State<Tile> {
                         widget.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodyLarge?.copyWith(fontWeight: titleWeight),
                       ),
                       if (widget.subtitle != null)
                         Text(
                           widget.subtitle!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodyMedium?.copyWith(fontWeight: subtitleWeight),
                         ),
                     ],
                   ),
                 ),
-                widget.trailing ??
-                    const Icon(Icons.arrow_forward_ios, size: 16),
+                widget.trailing ?? const Icon(Icons.arrow_forward_ios, size: 16),
               ],
             ),
           ),

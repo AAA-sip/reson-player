@@ -9,7 +9,6 @@ analyzer:
     - "lib/modules/parsing/**"
 
   errors:
-    # always_specify_types: info
     annotate_overrides: warning
     avoid_print: warning
     camel_case_extensions: warning
@@ -31,7 +30,6 @@ analyzer:
 
 linter:
   rules:
-    # - always_specify_types
     - annotate_overrides
     - avoid_multiple_declarations_per_line
     - avoid_print

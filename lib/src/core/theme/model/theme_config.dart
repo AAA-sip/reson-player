@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum ContrastLevel {
-  normal,
-  medium,
-  high;
-}
+enum ContrastLevel { normal, medium, high }
 
 class ThemeConfig {
   final ThemeMode themeMode;
@@ -17,11 +13,7 @@ class ThemeConfig {
     this.contrastLevel = ContrastLevel.normal,
   });
 
-  ThemeConfig copyWith({
-    ThemeMode? themeMode,
-    Color? seedColor,
-    ContrastLevel? contrastLevel,
-  }) {
+  ThemeConfig copyWith({ThemeMode? themeMode, Color? seedColor, ContrastLevel? contrastLevel}) {
     return ThemeConfig(
       themeMode: themeMode ?? this.themeMode,
       seedColor: seedColor ?? this.seedColor,
@@ -30,7 +22,7 @@ class ThemeConfig {
   }
 
   static const defaultColor = Colors.deepPurple;
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
