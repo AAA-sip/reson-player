@@ -17,11 +17,11 @@ class HomeScreen extends StatelessWidget {
           leading: const SizedBox(),
           leadingWidth: 0,
           actions: [
-            IconButton(
+            IconButton.filled(
               onPressed: () => router.push(AppRoutes.settings.path),
               icon: const Icon(Icons.settings_outlined),
             ),
-            IconButton(
+            IconButton.filled(
               onPressed: () => router.push(AppRoutes.search.path),
               icon: const Icon(Icons.search),
             ),

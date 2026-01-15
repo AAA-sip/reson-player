@@ -369,10 +369,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: ba03d03bcaa2f6cb7bd920e3b5027181db75ab524f8891c8bc3aa603885b8055
+      sha256: ca1cc501704c47e478f69a667d7f2d882755ddf7baad3f60c3b1256594467022
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.3"
+    version: "7.0.2"
   http:
     dependency: transitive
     description:
@@ -533,6 +533,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.1"
+  material_shapes:
+    dependency: "direct main"
+    description:
+      name: material_shapes
+      sha256: "20f20eb56ef4cd9c957f91f7cf4986aad910a65ed1f9a3bc33b13a19cc3fd885"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   material_symbols_icons:
     dependency: "direct main"
     description:
