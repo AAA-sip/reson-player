@@ -92,8 +92,8 @@ class PlayerArtwork extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      song.title,
+                    _AutoScrollText(
+                      text: song.title,
                       style: theme.textTheme.displayMedium?.copyWith(
                         fontSize: 42,
                         letterSpacing: -1.5,
@@ -104,8 +104,6 @@ class PlayerArtwork extends StatelessWidget {
                           const FontVariation('GRAD', 1),
                         ],
                       ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       song.artist,
@@ -121,6 +119,70 @@ class PlayerArtwork extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _AutoScrollText extends StatefulWidget {
+  final String text;
+  final TextStyle? style;
+
+  const _AutoScrollText({required this.text, this.style});
+
+  @override
+  State<_AutoScrollText> createState() => _AutoScrollTextState();
+}
+
+class _AutoScrollTextState extends State<_AutoScrollText> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startScrolling());
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _startScrolling() async {
+    while (mounted) {
+      if (_scrollController.hasClients &&
+          _scrollController.position.maxScrollExtent > 0) {
+        await Future.delayed(const Duration(seconds: 2));
+        if (!mounted) break;
+        await _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(seconds: 4),
+          curve: Curves.linear,
+        );
+        if (!mounted) break;
+        await Future.delayed(const Duration(seconds: 2));
+        if (!mounted) break;
+        await _scrollController.animateTo(
+          0.0,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeOut,
+        );
+      } else {
+        await Future.delayed(const Duration(seconds: 1));
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      controller: _scrollController,
+      scrollDirection: Axis.horizontal,
+      child: Text(
+        widget.text,
+        style: widget.style,
+        maxLines: 1,
+      ),
     );
   }
 }
