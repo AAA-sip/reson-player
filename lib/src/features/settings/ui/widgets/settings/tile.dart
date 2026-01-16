@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_shapes/material_shapes.dart';
-
-import '../../../../../core/theme/theme_util.dart';
 
 class Tile extends StatefulWidget {
   const Tile._({
@@ -88,14 +85,14 @@ class _TileState extends State<Tile> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = themeData(context);
+    final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
     BorderRadius effectiveRadius = widget.borderRadius;
     if (widget.isAbovePressed) {
       effectiveRadius = BorderRadius.only(
-        topLeft: const Radius.circular(20),
-        topRight: const Radius.circular(20),
+        topLeft: const Radius.circular(24),
+        topRight: const Radius.circular(24),
         bottomLeft: effectiveRadius.bottomLeft,
         bottomRight: effectiveRadius.bottomRight,
       );
@@ -103,33 +100,30 @@ class _TileState extends State<Tile> {
       effectiveRadius = BorderRadius.only(
         topLeft: effectiveRadius.topLeft,
         topRight: effectiveRadius.topRight,
-        bottomLeft: const Radius.circular(20),
-        bottomRight: const Radius.circular(20),
+        bottomLeft: const Radius.circular(24),
+        bottomRight: const Radius.circular(24),
       );
     }
 
     final decoration = BoxDecoration(
-      color: widget.color,
+      color: widget.color == Colors.transparent ? Colors.transparent : colorScheme.surfaceContainer,
       borderRadius: _pressed ? BorderRadius.circular(28) : effectiveRadius,
-      border: Border.all(color: _pressed ? colorScheme.primary : Colors.transparent, width: 1.5),
+      border: Border.all(color: _pressed ? colorScheme.primary.withValues(alpha: 0.5) : Colors.transparent, width: 1.5),
     );
 
     final iconColor = _pressed ? colorScheme.primary : colorScheme.onSurfaceVariant;
-    final pillColor = _pressed ? colorScheme.primaryContainer : colorScheme.onPrimary;
+    final pillColor = _pressed ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest;
     final iconFill = _pressed ? 1.0 : 0.0;
 
-    final titleWeight = _pressed ? FontWeight.bold : FontWeight.normal;
-    final subtitleWeight = _pressed ? FontWeight.w600 : FontWeight.normal;
-
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 120),
-      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 150),
+      curve: Curves.fastOutSlowIn,
       decoration: decoration,
       clipBehavior: Clip.antiAlias,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          highlightColor: colorScheme.primary.withValues(alpha: 0.05),
+          highlightColor: colorScheme.primary.withValues(alpha: 0.1),
           splashColor: colorScheme.primary.withValues(alpha: 0.1),
           onTap: widget.onTap,
           onHighlightChanged: (v) {
@@ -137,17 +131,21 @@ class _TileState extends State<Tile> {
             widget.onHighlightChanged?.call(v);
           },
           child: Padding(
-            padding: const EdgeInsets.all(22),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             child: Row(
               children: [
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
-                    MaterialShapes.pill(size: 30, color: pillColor),
+                    Container(
+                      width: 48,
+                      height: 32,
+                      decoration: ShapeDecoration(color: pillColor, shape: const StadiumBorder()),
+                    ),
                     Icon(widget.leadingIcon, fill: iconFill, color: iconColor),
                   ],
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,19 +154,23 @@ class _TileState extends State<Tile> {
                         widget.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodyLarge?.copyWith(fontWeight: titleWeight),
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: _pressed ? FontWeight.bold : FontWeight.w500,
+                          color: colorScheme.onSurface,
+                        ),
                       ),
                       if (widget.subtitle != null)
                         Text(
                           widget.subtitle!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodyMedium?.copyWith(fontWeight: subtitleWeight),
+                          style: theme.textTheme.bodyMedium?.copyWith(color: colorScheme.onSurfaceVariant),
                         ),
                     ],
                   ),
                 ),
-                widget.trailing ?? const Icon(Icons.arrow_forward_ios, size: 16),
+                widget.trailing ??
+                    Icon(Icons.chevron_right, size: 20, color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
               ],
             ),
           ),

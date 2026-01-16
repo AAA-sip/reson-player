@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/theme_util.dart';
 import 'tile.dart';
 
 class TileList extends StatefulWidget {
@@ -17,14 +16,14 @@ class _TileListState extends State<TileList> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = themeData(context);
+    final theme = Theme.of(context);
     return ListView.separated(
       shrinkWrap: true,
       itemCount: widget.items.length,
       physics: const NeverScrollableScrollPhysics(),
       separatorBuilder: (_, int index) {
         final isNextToPressed = _pressedIndex == index || _pressedIndex == index + 1;
-        return Container(color: isNextToPressed ? Colors.transparent : theme.scaffoldBackgroundColor, height: 1.5);
+        return Container(color: isNextToPressed ? Colors.transparent : theme.scaffoldBackgroundColor, height: 2.0);
       },
       itemBuilder: (_, int index) {
         final item = widget.items[index];
@@ -49,10 +48,9 @@ class _TileListState extends State<TileList> {
     );
   }
 
-  //
   BorderRadius _radiusForIndex(int index) {
-    const extremeRadius = Radius.circular(20);
-    const defaultRadius = Radius.circular(5);
+    const extremeRadius = Radius.circular(28);
+    const defaultRadius = Radius.circular(4);
 
     if (widget.items.length == 1) {
       return const BorderRadius.all(extremeRadius);

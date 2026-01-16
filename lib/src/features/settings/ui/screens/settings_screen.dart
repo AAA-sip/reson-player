@@ -39,24 +39,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: Stack(
           children: [
             ListView(
               controller: _scrollController,
               physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-              padding: const EdgeInsets.only(top: _expandedHeight + 10, left: 10, right: 10, bottom: 10),
+              padding: const EdgeInsets.only(top: _expandedHeight + 10, left: 12, right: 12, bottom: 24),
               children: [
-                //
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
-                  child: Text('Someshit', style: TextStyle(fontSize: 18)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+                  child: Text(
+                    'Application',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 TileList(items: _firstList()),
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 12.0),
-                  child: Text('Someshit', style: TextStyle(fontSize: 18)),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0, bottom: 12.0),
+                  child: Text(
+                    'Preferences',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 TileList(items: _secondList()),
               ],

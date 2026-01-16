@@ -39,11 +39,11 @@ class SettingsAppBar extends StatelessWidget {
             // Expanded Title
             Positioned(
               bottom: 16.0,
-              left: 16.0,
+              left: 20.0,
               child: Opacity(
                 opacity: expandedOpacity,
                 child: Transform.scale(
-                  scaleY: 1.0 + (scrollOffset < 0 ? -scrollOffset / 70 : 0.0), // -- 
+                  scaleY: 1.0 + (scrollOffset < 0 ? -scrollOffset / 70 : 0.0), // --
                   alignment: Alignment.topLeft,
                   child: const Text(
                     'Settings',
@@ -61,7 +61,7 @@ class SettingsAppBar extends StatelessWidget {
               ),
             ),
 
-            // Close Title
+            // Collapsed Title
             Positioned(
               top: 0,
               left: 0,
@@ -85,7 +85,7 @@ class SettingsAppBar extends StatelessWidget {
               ),
             ),
 
-            //
+            // Back Button
             Positioned(
               top: 8.0,
               left: 8.0,
