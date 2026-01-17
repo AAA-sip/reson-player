@@ -33,7 +33,6 @@ class _TileListState extends State<TileList> {
           subtitle: item.subtitle,
           trailing: item.trailing,
           onTap: item.onTap,
-          color: theme.colorScheme.surfaceContainer,
           leadingIcon: item.leadingIcon,
           borderRadius: _radiusForIndex(index),
           onHighlightChanged: (v) {

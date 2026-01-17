@@ -4,7 +4,6 @@ class Tile extends StatefulWidget {
   const Tile._({
     super.key,
     required this.title,
-    required this.color,
     required this.borderRadius,
     required this.leadingIcon,
     this.onTap,
@@ -16,7 +15,6 @@ class Tile extends StatefulWidget {
   });
 
   final String title;
-  final Color color;
   final BorderRadius borderRadius;
   final IconData leadingIcon;
   final String? subtitle;
@@ -42,7 +40,6 @@ class Tile extends StatefulWidget {
       leadingIcon: leadingIcon,
       trailing: trailing,
       onTap: onTap,
-      color: Colors.transparent,
       borderRadius: BorderRadius.zero,
     );
   }
@@ -51,7 +48,6 @@ class Tile extends StatefulWidget {
   factory Tile.card({
     Key? key,
     required String title,
-    required Color color,
     required IconData leadingIcon,
     required BorderRadius borderRadius,
     String? subtitle,
@@ -71,7 +67,6 @@ class Tile extends StatefulWidget {
       onHighlightChanged: onHighlightChanged,
       isAbovePressed: isAbovePressed,
       isBelowPressed: isBelowPressed,
-      color: color,
       borderRadius: borderRadius,
     );
   }
@@ -106,13 +101,13 @@ class _TileState extends State<Tile> {
     }
 
     final decoration = BoxDecoration(
-      color: widget.color == Colors.transparent ? Colors.transparent : colorScheme.surfaceContainer,
+      color: colorScheme.surfaceContainer,
       borderRadius: _pressed ? BorderRadius.circular(28) : effectiveRadius,
       border: Border.all(color: _pressed ? colorScheme.primary.withValues(alpha: 0.5) : Colors.transparent, width: 1.5),
     );
 
     final iconColor = _pressed ? colorScheme.primary : colorScheme.onSurfaceVariant;
-    final pillColor = _pressed ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest;
+    final shapeColor = _pressed ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest;
     final iconFill = _pressed ? 1.0 : 0.0;
 
     return AnimatedContainer(
@@ -137,10 +132,14 @@ class _TileState extends State<Tile> {
                 Stack(
                   alignment: AlignmentDirectional.center,
                   children: [
+                    // Transform.rotate(
+                    //   angle: math.Random().nextDouble() * 2 * math.pi,
+                    //   child: MaterialShapes.puffyDiamond(size: 32, color: shapeColor),
+                    // ),
                     Container(
                       width: 48,
                       height: 32,
-                      decoration: ShapeDecoration(color: pillColor, shape: const StadiumBorder()),
+                      decoration: ShapeDecoration(color: shapeColor, shape: const StadiumBorder()),
                     ),
                     Icon(widget.leadingIcon, fill: iconFill, color: iconColor),
                   ],

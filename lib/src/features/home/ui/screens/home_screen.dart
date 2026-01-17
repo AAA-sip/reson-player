@@ -1,42 +1,69 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/route/app_router.dart';
+import '../widgets/actions/actions_section.dart';
 import '../widgets/albums/home_albums_section.dart';
 import '../widgets/artists/home_artists_section.dart';
+import '../widgets/header/home_appbar.dart';
 import '../widgets/tracks/home_tracks_section.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(_) =>
-      //
-      Scaffold(
-        appBar: AppBar(
-          title: const Text('Home'),
-          leading: const SizedBox(),
-          leadingWidth: 0,
-          actions: [
-            IconButton.filled(
-              onPressed: () => router.push(AppRoutes.settings.path),
-              icon: const Icon(Icons.settings_outlined),
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+  double _scrollOffset = 0.0;
+  static const double _expandedHeight = 152.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    setState(() {
+      _scrollOffset = _scrollController.offset;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        bottom: false,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: _scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.only(top: _expandedHeight + 10, bottom: 24),
+              child: const Column(
+                spacing: 16,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ActionsSection(),
+                  HomeArtistsSection(),
+                  HomeAlbumsSection(),
+                  HomeTracksSection(),
+                  SizedBox(height: 1000),
+                ],
+              ),
             ),
-            IconButton.filled(
-              onPressed: () => router.push(AppRoutes.search.path),
-              icon: const Icon(Icons.search),
-            ),
+            HomeAppBar(scrollOffset: _scrollOffset),
           ],
         ),
-        body: const SingleChildScrollView(
-          child: Column(
-            spacing: 16,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              HomeAlbumsSection(),
-              HomeArtistsSection(),
-              HomeTracksSection(),
-            ],
-          ),
-        ),
-      );
+      ),
+    );
+  }
 }

@@ -9,30 +9,24 @@ class HomeTracksSection extends ConsumerWidget {
   const HomeTracksSection({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(context, ref) {
     final songsAsync = ref.watch(songsProvider);
+    final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Text(
             'Tracks',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
           ),
         ),
         songsAsync.when(
           data: (songs) {
             if (songs.isEmpty) {
-              return const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text('No songs found.'),
-              );
+              return const Padding(padding: EdgeInsets.all(16.0), child: Text('No songs found.'));
             }
             return ListView.builder(
               shrinkWrap: true,
@@ -49,10 +43,7 @@ class HomeTracksSection extends ConsumerWidget {
                     imageUrl: song.imageUrl ?? '',
                     onTap: () async {
                       final audioManager = ref.read(audioManagerProvider);
-                      await audioManager.setPlaylist(
-                        songs,
-                        initialIndex: index,
-                      );
+                      await audioManager.setPlaylist(songs, initialIndex: index);
                       await audioManager.play();
                       // Player screen will be accessible via MiniPlayer
                     },
@@ -61,8 +52,7 @@ class HomeTracksSection extends ConsumerWidget {
               },
             );
           },
-          error: (Object err, StackTrace stack) =>
-              Center(child: Text('Error: $err')),
+          error: (Object err, StackTrace stack) => Center(child: Text('Error: $err')),
           loading: () => const Center(child: CircularProgressIndicator()),
         ),
       ],

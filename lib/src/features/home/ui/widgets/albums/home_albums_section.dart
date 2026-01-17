@@ -8,22 +8,19 @@ class HomeAlbumsSection extends ConsumerWidget {
   const HomeAlbumsSection({super.key});
 
   @override
-  Widget build(_, WidgetRef ref) {
+  Widget build(context, ref) {
     final albumsAsync = ref.watch(albumsProvider);
     final playlistsAsync = ref.watch(playlistsProvider);
+    final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
           child: Text(
             'Albums & Playlists',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(
@@ -36,17 +33,11 @@ class HomeAlbumsSection extends ConsumerWidget {
                 data: (albums) => albums.map(
                   (album) => Padding(
                     padding: const EdgeInsets.only(right: 16),
-                    child: CartWidget(
-                      title: album.title,
-                      subtitle: album.artist,
-                      imageUrl: album.imageUrl ?? '',
-                    ),
+                    child: CartWidget(title: album.title, subtitle: album.artist, imageUrl: album.imageUrl ?? ''),
                   ),
                 ),
                 error: (_, _) => [const Center(child: Text('Error'))],
-                loading: () => [
-                  const Center(child: CircularProgressIndicator()),
-                ],
+                loading: () => [const Center(child: CircularProgressIndicator())],
               ),
               ...playlistsAsync.when(
                 data: (playlists) => playlists.map(

@@ -20,10 +20,7 @@ class PlayerScreen extends ConsumerWidget {
     final player = audioManager.player;
 
     // Always force dark theme for the player
-    final darkTheme = generateTheme(
-      brightness: Brightness.dark,
-      config: themeConfig,
-    );
+    final darkTheme = generateTheme(brightness: Brightness.dark, config: themeConfig);
 
     return Theme(
       data: darkTheme,
