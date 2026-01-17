@@ -31,7 +31,7 @@ class _ActionWidgetState extends State<ActionWidget> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    BorderRadius effectiveRadius = widget.borderRadius;
+    final BorderRadius effectiveRadius = widget.borderRadius;
 
     final decoration = BoxDecoration(
       color: colorScheme.surfaceContainer,
@@ -39,9 +39,7 @@ class _ActionWidgetState extends State<ActionWidget> {
       border: Border.all(color: _pressed ? colorScheme.primary.withValues(alpha: 0.5) : Colors.transparent, width: 1.5),
     );
 
-    final iconColor = _pressed ? colorScheme.primary : colorScheme.onSurfaceVariant;
     final shapeColor = _pressed ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest;
-    final iconFill = _pressed ? 1.0 : 0.0;
 
     return AnimatedContainer(
       width: widget.width,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'screems.dart';
+import 'screens.dart';
 import 'shell/screen_with_player.dart';
 
 final GoRouter router = GoRouter(

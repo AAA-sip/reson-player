@@ -1,9 +1,5 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../features/home/domain/providers.dart';
 
 class ProviderWidget extends StatelessWidget {
   const ProviderWidget({super.key, required this.app});
@@ -14,7 +10,6 @@ class ProviderWidget extends StatelessWidget {
   Widget build(_) =>
       //
       ProviderScope(
-        // overrides: [musicRepoProvider.overrideWith((_) => MockMusicRepo())],
         child: app,
       );
 }

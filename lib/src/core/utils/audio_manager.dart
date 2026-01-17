@@ -1,6 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import '../../features/home/domain/entity/song_entity.dart';
+import '../../features/discover/domain/entity/song_entity.dart';
 
 class AudioManager {
   final AudioPlayer _player = AudioPlayer();

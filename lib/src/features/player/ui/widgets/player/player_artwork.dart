@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../home/domain/entity/song_entity.dart';
+import '../../../../discover/domain/entity/song_entity.dart';
 
 class PlayerArtwork extends StatelessWidget {
   final SongEntity song;

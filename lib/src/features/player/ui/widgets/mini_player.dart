@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import '../../../../core/deps/providers.dart';
-import '../../../home/domain/entity/song_entity.dart';
+import '../../../discover/domain/entity/song_entity.dart';
 
 class MiniPlayer extends ConsumerWidget {
   const MiniPlayer({super.key});
@@ -35,83 +35,77 @@ class MiniPlayer extends ConsumerWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Column(
-              children: [
-                // Progress Bar at the top (optional visual flair)
-                StreamBuilder<Duration>(
-                  stream: player.positionStream,
-                  builder: (context, snapshot) {
-                    final position = snapshot.data ?? Duration.zero;
-                    final duration = player.duration ?? Duration.zero;
-                    if (duration.inMilliseconds == 0) {
-                      return const SizedBox(height: 2);
-                    }
-                    return LinearProgressIndicator(
-                      value: position.inMilliseconds / duration.inMilliseconds,
-                      minHeight: 2,
-                      backgroundColor: Colors.transparent,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                    );
-                  },
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        // Artwork / Icon
-                        _buildArtwork(context, song),
-                        const SizedBox(width: 12),
-                        // Title & Artist
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                song.title,
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Text(
-                                song.artist,
-                                style: Theme.of(context).textTheme.bodySmall,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                children: [
+                  // Progress Bar at the top (optional visual flair)
+                  StreamBuilder<Duration>(
+                    stream: player.positionStream,
+                    builder: (context, snapshot) {
+                      final position = snapshot.data ?? Duration.zero;
+                      final duration = player.duration ?? Duration.zero;
+                      if (duration.inMilliseconds == 0) {
+                        return const SizedBox(height: 2);
+                      }
+                      return LinearProgressIndicator(
+                        value: position.inMilliseconds / duration.inMilliseconds,
+                        minHeight: 2,
+                        backgroundColor: Colors.transparent,
+                        valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary),
+                      );
+                    },
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          // Artwork / Icon
+                          _buildArtwork(context, song),
+                          const SizedBox(width: 12),
+                          // Title & Artist
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  song.title,
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  song.artist,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        // Play/Pause Button
-                        StreamBuilder<PlayerState>(
-                          stream: player.playerStateStream,
-                          builder: (context, snapshot) {
-                            final playerState = snapshot.data;
-                            final playing = playerState?.playing;
-                            return IconButton(
-                              icon: Icon(
-                                playing == true ? Icons.pause : Icons.play_arrow,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              onPressed: playing == true
-                                  ? audioManager.pause
-                                  : audioManager.play,
-                            );
-                          },
-                        ),
-                      ],
+                          // Play/Pause Button
+                          StreamBuilder<PlayerState>(
+                            stream: player.playerStateStream,
+                            builder: (context, snapshot) {
+                              final playerState = snapshot.data;
+                              final playing = playerState?.playing;
+                              return IconButton(
+                                icon: Icon(
+                                  playing == true ? Icons.pause : Icons.play_arrow,
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
+                                onPressed: playing == true ? audioManager.pause : audioManager.play,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      );
+        );
       },
     );
   }
@@ -125,10 +119,7 @@ class MiniPlayer extends ConsumerWidget {
         color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(4),
       ),
-      child: Icon(
-        Icons.music_note,
-        color: Theme.of(context).colorScheme.onPrimaryContainer,
-      ),
+      child: Icon(Icons.music_note, color: Theme.of(context).colorScheme.onPrimaryContainer),
     );
   }
 }

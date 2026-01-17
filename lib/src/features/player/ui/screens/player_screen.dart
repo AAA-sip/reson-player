@@ -5,7 +5,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import '../../../../core/deps/providers.dart';
 import '../../../../core/theme/provider/theme_provider.dart';
 import '../../../../core/theme/theme_generator.dart';
-import '../../../home/domain/entity/song_entity.dart';
+import '../../../discover/domain/entity/song_entity.dart';
 import '../widgets/player/player_artwork.dart';
 import '../widgets/player/player_controls.dart';
 import '../widgets/player/waveform_progress_bar.dart';
