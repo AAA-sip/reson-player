@@ -1,108 +1,86 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/route/app_router.dart';
-import '../../../core/theme/theme_util.dart';
 
-class SettingsAppBar extends StatelessWidget {
-  final double scrollOffset;
-  final double expandedHeight;
-  final double collapsedHeight;
+class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final ValueNotifier<bool> showTitle;
 
-  const SettingsAppBar({
-    super.key,
-    required this.scrollOffset,
-    this.expandedHeight = 152.0,
-    this.collapsedHeight = 64.0,
-  });
+  const SettingsAppBar({super.key, required this.showTitle});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
-    final double currentHeight = (expandedHeight - scrollOffset).clamp(collapsedHeight, expandedHeight);
+    return ValueListenableBuilder<bool>(
+      valueListenable: showTitle,
+      builder: (context, visible, _) {
+        return AppBar(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Colors.transparent,
+          elevation: visible ? 2 : 0,
+          leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => router.pop()),
+          centerTitle: true,
+          title: AnimatedOpacity(
+            opacity: visible ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 150),
+            child: const Text(
+              'Settings',
+              style: TextStyle(
+                fontVariations: [FontVariation('wght', 900), FontVariation('wdth', 150), FontVariation('GRAD', 1)],
+              ),
+            ),
+          ),
+          // bottom: PreferredSize(
+          //   preferredSize: const Size.fromHeight(20),
+          //   child: Container(
+          //     height: 20,
+          //     decoration: const BoxDecoration(
+          //       borderRadius: BorderRadius.only(topLeft: Radius.elliptical(10, 60), topRight: Radius.elliptical(10, 10)),
+          //       color: Colors.red,
+          //     ),
+          //   ),
+          // ),
+        );
+      },
+    );
+  }
+}
 
-    final double t = ((expandedHeight - currentHeight) / (expandedHeight - collapsedHeight)).clamp(0.0, 1.0);
+class ExpandedTitle extends StatelessWidget {
+  final ValueNotifier<double> scrollOffset;
+  final double expandedHeight;
 
-    final double expandedOpacity = (1 - (t / 0.4)).clamp(0.0, 1.0);
-    final double collapsedOpacity = ((t - 0.6) / 0.4).clamp(0.0, 1.0);
+  const ExpandedTitle({super.key, required this.scrollOffset, required this.expandedHeight});
 
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final TextTheme textTheme = Theme.of(context).textTheme;
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<double>(
+      valueListenable: scrollOffset,
+      builder: (context, offset, _) {
+        final t = (offset / expandedHeight).clamp(0.0, 1.0);
+        final opacity = (1 - t / 0.6).clamp(0.0, 1.0);
 
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      height: currentHeight,
-      child: Container(
-        color: colorScheme.surface,
-        child: Stack(
-          children: [
-            // Expanded Title
-            Positioned(
-              bottom: 16.0,
-              left: 20.0,
-              child: Opacity(
-                opacity: expandedOpacity,
-                child: Transform.scale(
-                  scaleY: 1.0 + (scrollOffset < 0 ? -scrollOffset / 70 : 0.0), // --
-                  alignment: Alignment.topLeft,
-                  child: const Text(
-                    'Settings',
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontVariations: [
-                        FontVariation('wght', 700),
-                        FontVariation('wdth', 150),
-                        FontVariation('GRAD', 1),
-                      ],
-                      letterSpacing: -1.5,
-                    ),
-                  ),
+        return IgnorePointer(
+          ignoring: opacity == 0,
+          child: Opacity(
+            opacity: opacity,
+            child: Container(
+              height: expandedHeight,
+              alignment: Alignment.bottomLeft,
+              padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
+              child: const Text(
+                'Settings',
+                style: TextStyle(
+                  fontSize: 45,
+                  fontVariations: [FontVariation('wght', 700), FontVariation('wdth', 150), FontVariation('GRAD', 1)],
+                  letterSpacing: -1.5,
                 ),
               ),
             ),
-
-            // Collapsed Title
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              height: collapsedHeight,
-              child: Opacity(
-                opacity: collapsedOpacity,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Settings',
-                    style: textTheme.titleLarge!.copyWith(
-                      fontVariations: [
-                        const FontVariation('wght', 900),
-                        const FontVariation('wdth', 150),
-                        const FontVariation('GRAD', 1),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            // Back Button
-            Positioned(
-              top: 8.0,
-              left: 8.0,
-              child: SafeArea(
-                child: IconButton.filled(
-                  icon: const Icon(Icons.arrow_back),
-                  style: IconButton.styleFrom(
-                    backgroundColor: themeData(context).colorScheme.surfaceContainerHighest,
-                    foregroundColor: themeData(context).colorScheme.onSurface,
-                  ),
-                  onPressed: () => router.pop(),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

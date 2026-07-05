@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/deps/providers.dart';
-import 'home_state.dart';
+import '../../../../core/deps/providers.dart';
+import '../home_state.dart';
 import 'tile_widget.dart';
 
 class HomeTracksSection extends ConsumerWidget {

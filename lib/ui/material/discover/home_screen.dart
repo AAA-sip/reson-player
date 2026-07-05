@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'actions_section.dart';
-import 'home_albums_section.dart';
-import 'home_appbar.dart';
-import 'home_artists_section.dart';
-import 'home_tracks_section.dart';
+import 'actions/actions_section.dart';
+import 'albums/home_albums_section.dart';
+import 'artists/home_artists_section.dart';
+import 'header/home_appbar.dart';
+import 'tracks/home_tracks_section.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

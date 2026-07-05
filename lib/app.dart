@@ -30,7 +30,7 @@ class ResonApp extends ConsumerWidget {
       themeMode: themeConfig.themeMode,
       routerConfig: router,
       debugShowCheckedModeBanner: false,
-      scrollBehavior: BounceScrollBehavior(),
+      // scrollBehavior: BounceScrollBehavior(),
     );
   }
 }
