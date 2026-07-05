@@ -4,7 +4,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
-import 'src/core/deps/providers.dart';
+import 'core/deps/providers.dart';
 
 Future<void> main() async {
   await JustAudioBackground.init(

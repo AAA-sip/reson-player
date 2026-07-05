@@ -7,8 +7,6 @@ environment:
   sdk: ^3.10.0
 
 dependencies:
-  flutter:
-    sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_riverpod: ^3.1.0
   freezed_annotation: ^3.1.0
@@ -24,11 +22,6 @@ dependencies:
   url_launcher: ^6.3.2
   shared_preferences: ^2.5.4
   just_audio: ^0.10.5
-  on_audio_query:
-    git:
-      url: https://github.com/rozpo/on_audio_query
-      path: packages/on_audio_query
-      ref: main
   permission_handler: ^12.0.1
   material_design: ^0.28.1
   adaptive_theme: ^3.7.2
@@ -38,11 +31,19 @@ dependencies:
   material_shapes: ^0.0.2
   just_audio_background: ^0.0.1-beta.17
 
-dev_dependencies:
-  flutter_test:
+  flutter:
     sdk: flutter
+  on_audio_query:
+    git:
+      url: https://github.com/rozpo/on_audio_query
+      path: packages/on_audio_query
+      ref: main
+
+dev_dependencies:
   freezed: ^3.2.3
   flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true

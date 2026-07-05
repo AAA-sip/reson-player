@@ -45,6 +45,6 @@ app.*.map.json
 /android/app/release
 
 #
-.zed
-rules.txt
-mediastore.txt
+.zed/
+.mimocode/
+.agent/

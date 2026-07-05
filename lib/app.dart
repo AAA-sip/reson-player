@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'src/core/deps/init.dart';
-import 'src/core/route/app_router.dart';
-import 'src/core/theme/provider/theme_provider.dart';
-import 'src/core/theme/theme_generator.dart';
+import 'core/deps/init.dart';
+import 'core/route/app_router.dart';
+import 'core/theme/provider/theme_provider.dart';
+import 'core/theme/theme_generator.dart';
 
 class ResonApp extends ConsumerWidget {
   const ResonApp({super.key});
