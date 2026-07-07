@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/theme/model/theme_config.dart';
-import '../../../core/theme/provider/theme_provider.dart';
+import '../../../../core/theme/model/theme_config.dart';
+import '../../../../core/theme/provider/theme_provider.dart';
 
 class ThemeScreen extends ConsumerWidget {
   const ThemeScreen({super.key});

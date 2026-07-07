@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import '../../../core/deps/providers.dart';
-import '../../../core/theme/provider/theme_provider.dart';
-import '../../../core/theme/theme_generator.dart';
-import '../../../model/song_model.dart';
-import 'player_artwork.dart';
+import '../../../../core/deps/providers.dart';
+import '../../../../core/theme/provider/theme_provider.dart';
+import '../../../../core/theme/theme_generator.dart';
+import '../../../../model/song_model.dart';
+import '../artwork/player_artwork.dart';
+import '../progress/waveform_progress_bar.dart';
 import 'player_controls.dart';
-import 'waveform_progress_bar.dart';
 
 class PlayerScreen extends ConsumerWidget {
   const PlayerScreen({super.key});

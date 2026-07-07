@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'cart_widget.dart';
 import '../home_state.dart';
+import 'cart_widget.dart';
 
 class HomeAlbumsSection extends ConsumerWidget {
   const HomeAlbumsSection({super.key});

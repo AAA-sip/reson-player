@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../ui/material/player/mini_player.dart';
+import '../../../ui/material/player/mini/mini_player.dart';
 
 class ScreenWithPlayer extends StatelessWidget {
   const ScreenWithPlayer({required this.child, super.key});

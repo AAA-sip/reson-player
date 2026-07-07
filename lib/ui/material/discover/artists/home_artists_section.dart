@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'circle_widget.dart';
 import '../home_state.dart';
+import 'circle_widget.dart';
 
 class HomeArtistsSection extends ConsumerWidget {
   const HomeArtistsSection({super.key});

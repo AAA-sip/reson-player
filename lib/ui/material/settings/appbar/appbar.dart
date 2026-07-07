@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/route/app_router.dart';
+import '../../../../core/route/app_router.dart';
+import '../../../../core/theme/theme_util.dart';
 
 class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ValueNotifier<bool> showTitle;
@@ -16,11 +17,18 @@ class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
       valueListenable: showTitle,
       builder: (context, visible, _) {
         return AppBar(
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: themeData(context).colorScheme.surface,
           surfaceTintColor: Colors.transparent,
-          elevation: visible ? 2 : 0,
-          leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () => router.pop()),
+          elevation: 0,
           centerTitle: true,
+          leading: IconButton.filled(
+            icon: const Icon(Icons.arrow_back),
+            style: IconButton.styleFrom(
+              backgroundColor: themeData(context).colorScheme.surfaceContainerHighest,
+              foregroundColor: themeData(context).colorScheme.onSurface,
+            ),
+            onPressed: () => router.pop(),
+          ),
           title: AnimatedOpacity(
             opacity: visible ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 150),
@@ -31,16 +39,6 @@ class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          // bottom: PreferredSize(
-          //   preferredSize: const Size.fromHeight(20),
-          //   child: Container(
-          //     height: 20,
-          //     decoration: const BoxDecoration(
-          //       borderRadius: BorderRadius.only(topLeft: Radius.elliptical(10, 60), topRight: Radius.elliptical(10, 10)),
-          //       color: Colors.red,
-          //     ),
-          //   ),
-          // ),
         );
       },
     );
