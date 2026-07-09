@@ -12,15 +12,9 @@ class ResonApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeConfig = ref.watch(themeControllerProvider);
 
-    final lightTheme = generateTheme(
-      brightness: Brightness.light,
-      config: themeConfig,
-    );
+    final lightTheme = generateTheme(brightness: Brightness.light, config: themeConfig);
 
-    final darkTheme = generateTheme(
-      brightness: Brightness.dark,
-      config: themeConfig,
-    );
+    final darkTheme = generateTheme(brightness: Brightness.dark, config: themeConfig);
 
     return MaterialApp.router(
       title: 'Reson',
@@ -29,7 +23,6 @@ class ResonApp extends ConsumerWidget {
       themeMode: themeConfig.themeMode,
       routerConfig: router,
       debugShowCheckedModeBanner: false,
-      // scrollBehavior: BounceScrollBehavior(),
     );
   }
 }

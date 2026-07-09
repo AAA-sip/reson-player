@@ -1,3 +1,3 @@
 import 'package:logger/logger.dart';
 
-final Logger loggerProvider = Logger();
+final Logger logger = Logger();

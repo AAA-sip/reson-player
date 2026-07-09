@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/material.dart';
 
-class LocalWidget extends StatelessWidget {
-  const LocalWidget({super.key, required this.child});
+class LocalBootstrap extends StatelessWidget {
+  const LocalBootstrap({super.key, required this.app});
 
-  final Widget child;
+  final Widget app;
 
   @override
   Widget build(_) =>
@@ -17,8 +17,8 @@ class LocalWidget extends StatelessWidget {
           const Locale('kk'),
         ],
         path: 'assets/local',
-        fallbackLocale: const Locale('ru'),
+        fallbackLocale: const Locale('en'),
         assetLoader: const YamlAssetLoader(),
-        child: child,
+        child: app,
       );
 }

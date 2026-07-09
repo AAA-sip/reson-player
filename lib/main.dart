@@ -1,27 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:just_audio_background/just_audio_background.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart'; // fuck this library
 
 import 'app.dart';
-import 'core/deps/providers.dart';
+import 'core/deps/bootstrap/bootstrap.dart';
+import 'core/deps/init.dart';
 
+/// UAHAHAH!!!
 Future<void> main() async {
-  await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.example.reson.channel.audio',
-    androidNotificationChannelName: 'Audio playback',
-    androidNotificationOngoing: true,
-  );
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  final prefs = await SharedPreferences.getInstance();
+  await AppInit.initialize();
 
-  runApp(
-    ProviderScope(
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(prefs),
-      ],
-      child: const ResonApp(),
-    ),
-  );
+  runApp(const Bootstrap(app: ResonApp()));
 }
