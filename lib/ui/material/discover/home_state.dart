@@ -5,7 +5,7 @@ import '../../../model/album_model.dart';
 import '../../../model/artist_model.dart';
 import '../../../model/playlist_model.dart';
 import '../../../model/song_model.dart';
-import '../../../service/discover_providers.dart';
+import '../../../service/providers.dart';
 
 final songsProvider = FutureProvider<List<SongModel>>((ref) async {
   final permissionManager = ref.watch(permissionManagerProvider);

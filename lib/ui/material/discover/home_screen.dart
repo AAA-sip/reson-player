@@ -51,13 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Column(
                 spacing: 16,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ActionsSection(),
-                  HomeArtistsSection(),
-                  HomeAlbumsSection(),
-                  HomeTracksSection(),
-                  SizedBox(height: 1000),
-                ],
+                children: [ActionsSection(), HomeArtistsSection(), HomeAlbumsSection(), HomeTracksSection()],
               ),
             ),
             HomeAppBar(scrollOffset: _scrollOffset),
