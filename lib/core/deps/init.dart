@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 
@@ -11,8 +10,6 @@ class AppInit {
 
   static Future<void> initialize() async {
     try {
-      _widgetsFlutterBinding(); // maybe huinya?
-      //
       await _initDotenv();
       await _initSharedPref();
       await _initLocalization();
@@ -21,10 +18,6 @@ class AppInit {
       logger.w(e);
       rethrow;
     }
-  }
-
-  static void _widgetsFlutterBinding() async {
-    WidgetsFlutterBinding.ensureInitialized();
   }
 
   static Future<void> _initSharedPref() async {
