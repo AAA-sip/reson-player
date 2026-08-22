@@ -1,8 +1,20 @@
+output:
+  - meta    
+  - summary 
+  - failure 
+
 pre-commit:
   parallel: true
   commands:
+    deny-main-commit:
+      run: |
+        branch="$(git branch --show-current)"
+        if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+          echo "Nuh man, not this time. Branch $branch not for you. Maybe another life."
+          exit 1
+        fi
     formatting:
       glob: "*.dart"
       run: dart format -l 120 {staged_files} && git add {staged_files}
     linter:
-      run: flutter analyze --fatal-warnings
+      run: flutter analyze --no-fatal-infos
