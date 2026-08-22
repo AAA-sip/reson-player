@@ -1,12 +1,15 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
-  # plugins:
-  #   - custom_lint
-
   exclude:
     - "**/*.g.dart"
-    - "lib/modules/parsing/**"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
   errors:
     annotate_overrides: warning

@@ -1,0 +1,8 @@
+pre-commit:
+  parallel: true
+  commands:
+    formatting:
+      glob: "*.dart"
+      run: dart format -l 120 {staged_files} && git add {staged_files}
+    linter:
+      run: flutter analyze --fatal-warnings
