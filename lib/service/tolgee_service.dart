@@ -31,17 +31,25 @@ class TolgeeServiceImpl implements TolgeeService {
 
   @override
   Future<String> exportLocaleRaw(String languageCode) async {
-    final response = await _dio.get<String>(
-      '/v2/projects/export',
-      queryParameters: <String, dynamic>{
-        'languages': languageCode,
-        'format': 'JSON',
-        'zip': 'false',
-        'filterState': _filterStates,
-      },
-    );
+    try {
+      final response = await _dio.get<String>(
+        '/v2/projects/export',
+        queryParameters: <String, dynamic>{
+          'languages': languageCode,
+          'format': 'JSON',
+          'zip': 'false',
+          'filterState': _filterStates,
+        },
+      );
 
-    return response.data ?? '{}';
+      return response.data ?? '{}';
+    } on DioException catch (e) {
+      // Nothing translated yet for this language -> same as empty.
+      final data = e.response?.data;
+      final emptyResult = e.response?.statusCode == 400 && data is String && data.contains('no_exported_result');
+      if (emptyResult) return '{}';
+      rethrow;
+    }
   }
 }
 

@@ -5,7 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../utils/logger.dart';
-import '../utils/shared_pref/export.dart';
+import '../utils/shared_pref/_export.dart';
 
 class LocalizationMeta {
   const LocalizationMeta({required this.hash, required this.updatedAt});
@@ -51,6 +51,7 @@ class LocalizationCache {
 
   /// Cached translations for locale or null.
   static Map<String, dynamic>? read(String languageCode) {
+    if (_dir == null) return null;
     try {
       final file = _fileFor(languageCode);
       if (!file.existsSync()) return null;

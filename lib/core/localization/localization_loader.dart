@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 
 import '../../service/tolgee_service.dart';
 import '../utils/logger.dart';
-import '../utils/shared_pref/export.dart';
+import '../utils/shared_pref/_export.dart';
 import 'localization_cache.dart';
 
 /// Loads translations for easy_localization.

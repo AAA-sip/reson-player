@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,6 +19,9 @@ class MaterialResonApp extends ConsumerWidget {
       darkTheme: generateTheme(brightness: Brightness.dark, config: themeConfig),
       themeMode: themeConfig.themeMode,
       routerConfig: materialRouter,
+      locale: context.locale,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
       debugShowCheckedModeBanner: false,
     );
   }

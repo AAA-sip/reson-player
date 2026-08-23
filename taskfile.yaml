@@ -4,3 +4,8 @@ tasks:
   emulator-da:
     cmds:
       - flutter emulators --launch da
+
+  l10n-gen:
+    desc: Generate typed localization keys from assets/local/en.json
+    cmds:
+      - dart run tool/generate_localization_keys.dart

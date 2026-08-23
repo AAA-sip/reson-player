@@ -5,7 +5,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import '../localization/localization_cache.dart';
 import '../localization/localization_loader.dart';
 import '../utils/logger.dart';
-import '../utils/shared_pref/export.dart';
+import '../utils/shared_pref/_export.dart';
 
 class AppInit {
   AppInit._();

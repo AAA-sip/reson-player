@@ -1,4 +1,5 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,6 +26,9 @@ class CupertinoResonApp extends ConsumerWidget {
           title: 'Reson',
           theme: generateCupertinoTheme(brightness: effectiveBrightness, config: themeConfig),
           routerConfig: cupertinoRouter,
+          locale: context.locale,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
           debugShowCheckedModeBanner: false,
         );
       },

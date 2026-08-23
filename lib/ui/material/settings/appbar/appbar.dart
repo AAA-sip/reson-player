@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/localization/strings.g.dart';
 import '../../../../route/material_router.dart';
 import '../../../../theme/theme_util.dart';
 
@@ -32,9 +33,9 @@ class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
           title: AnimatedOpacity(
             opacity: visible ? 1.0 : 0.0,
             duration: const Duration(milliseconds: 150),
-            child: const Text(
-              'Settings',
-              style: TextStyle(
+            child: Text(
+              Strings.settings.title,
+              style: const TextStyle(
                 fontVariations: [FontVariation('wght', 900), FontVariation('wdth', 150), FontVariation('GRAD', 1)],
               ),
             ),
@@ -67,9 +68,9 @@ class ExpandedTitle extends StatelessWidget {
               height: expandedHeight,
               alignment: Alignment.bottomLeft,
               padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
-              child: const Text(
-                'Settings',
-                style: TextStyle(
+              child: Text(
+                Strings.settings.title,
+                style: const TextStyle(
                   fontSize: 45,
                   fontVariations: [FontVariation('wght', 700), FontVariation('wdth', 150), FontVariation('GRAD', 1)],
                   letterSpacing: -1.5,

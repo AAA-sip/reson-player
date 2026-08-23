@@ -1,1 +1,22 @@
-{}
+{
+  "settings": {
+    "title": "Settings",
+    "application": "Application",
+    "preferences": "Preferences",
+    "appearance": "Appearance",
+    "appearanceSubtitle": "Theme, color, contrast",
+    "about": "About",
+    "aboutSubtitle": "Reson App v1.0.0",
+    "language": "Language",
+    "languageSubtitle": "App language",
+    "notifications": "Notifications",
+    "notificationsSubtitle": "Enable notifications",
+    "fonts": "Fonts",
+    "fontsSubtitle": "Customize fonts",
+    "scale": "Scale",
+    "scaleSubtitle": "Customize scale"
+  },
+  "languagePicker": {
+    "title": "Choose language"
+  }
+}
