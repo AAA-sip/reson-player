@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/route/app_router.dart';
-import '../../../../core/theme/theme_util.dart';
+import '../../../../route/material_router.dart';
+import '../../../../theme/theme_util.dart';
 
 class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ValueNotifier<bool> showTitle;
@@ -27,7 +27,7 @@ class SettingsAppBar extends StatelessWidget implements PreferredSizeWidget {
               backgroundColor: themeData(context).colorScheme.surfaceContainerHighest,
               foregroundColor: themeData(context).colorScheme.onSurface,
             ),
-            onPressed: () => router.pop(),
+            onPressed: () => materialRouter.pop(),
           ),
           title: AnimatedOpacity(
             opacity: visible ? 1.0 : 0.0,

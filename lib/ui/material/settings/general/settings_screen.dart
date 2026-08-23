@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-import '../../../../core/route/app_router.dart';
+import '../../../../route/material_router.dart';
 import '../appbar/appbar.dart';
 import 'tile.dart';
 import 'tile_list.dart';
@@ -76,9 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: SettingsAppBar(showTitle: _showAppBarTitle),
       body: ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.elliptical(40, 100),
-        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.elliptical(40, 100)),
         child: NotificationListener<ScrollNotification>(
           onNotification: _onScrollNotification,
           child: ListView(
@@ -135,7 +133,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: 'Appearance',
         subtitle: 'Theme, color, contrast',
         leadingIcon: Symbols.palette,
-        onTap: () => router.push(AppRoutes.theme.path),
+        onTap: () => materialRouter.push(MaterialRoutes.theme.path),
       ),
       Tile.list(title: 'About', subtitle: 'Reson App v1.0.0', onTap: () {}, leadingIcon: Symbols.info),
       Tile.list(title: 'Language', subtitle: 'English', onTap: () {}, leadingIcon: Symbols.language),

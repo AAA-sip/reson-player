@@ -1,28 +1,31 @@
-import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../route/app_router.dart';
-import '../theme/provider/theme_provider.dart';
-import '../theme/theme_generator.dart';
+import '../../service/providers.dart';
+import 'app_style.dart';
+import 'cupertino_app.dart';
+import 'material_app.dart';
 
 class ResonApp extends ConsumerWidget {
   const ResonApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeConfig = ref.watch(themeControllerProvider);
+    final style = ref.watch(appStyleControllerProvider);
 
-    final lightTheme = generateTheme(brightness: Brightness.light, config: themeConfig);
+    // Translations were refreshed in background -> reload current strings.
+    ref.listen<AsyncValue<bool>>(localizationSyncProvider, (_, next) {
+      if (next.hasValue && next.value == true) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (context.mounted) context.setLocale(context.locale);
+        });
+      }
+    });
 
-    final darkTheme = generateTheme(brightness: Brightness.dark, config: themeConfig);
-
-    return MaterialApp.router(
-      title: 'Reson',
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: themeConfig.themeMode,
-      routerConfig: router,
-      debugShowCheckedModeBanner: false,
-    );
+    return switch (style) {
+      AppStyle.material => const MaterialResonApp(),
+      AppStyle.cupertino => const CupertinoResonApp(),
+    };
   }
 }

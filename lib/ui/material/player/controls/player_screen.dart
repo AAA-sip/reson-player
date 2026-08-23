@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+
 import '../../../../core/deps/providers.dart';
-import '../../../../core/theme/provider/theme_provider.dart';
-import '../../../../core/theme/theme_generator.dart';
 import '../../../../model/song_model.dart';
+import '../../../../theme/provider/theme_provider.dart';
+import '../../../../theme/theme_generator.dart';
 import '../artwork/player_artwork.dart';
 import '../progress/waveform_progress_bar.dart';
 import 'player_controls.dart';

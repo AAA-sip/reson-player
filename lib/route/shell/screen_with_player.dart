@@ -14,12 +14,7 @@ class ScreenWithPlayer extends StatelessWidget {
         body: Stack(
           children: [
             child,
-            const Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: SafeArea(top: false, child: MiniPlayer()),
-            ),
+            const Positioned(left: 0, right: 0, bottom: 0, child: SafeArea(top: false, child: MiniPlayer())),
           ],
         ),
       );

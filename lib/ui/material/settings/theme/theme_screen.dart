@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/theme/model/theme_config.dart';
-import '../../../../core/theme/provider/theme_provider.dart';
+
+import '../../../../core/app/app_style.dart';
+import '../../../../theme/model/theme_config.dart';
+import '../../../../theme/provider/theme_provider.dart';
 
 class ThemeScreen extends ConsumerWidget {
   const ThemeScreen({super.key});
@@ -10,32 +12,35 @@ class ThemeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeConfig = ref.watch(themeControllerProvider);
     final notifier = ref.read(themeControllerProvider.notifier);
+    final appStyle = ref.watch(appStyleControllerProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Appearance')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          Text('App Style', style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 12),
+          SegmentedButton<AppStyle>(
+            showSelectedIcon: false,
+            segments: const [
+              ButtonSegment(value: AppStyle.material, label: Text('Material')),
+              ButtonSegment(value: AppStyle.cupertino, label: Text('Cupertino')),
+            ],
+            selected: {appStyle},
+            onSelectionChanged: (Set<AppStyle> newSelection) {
+              ref.read(appStyleControllerProvider.notifier).setStyle(newSelection.first);
+            },
+          ),
+          const SizedBox(height: 24),
           Text('Theme Mode', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 12),
           SegmentedButton<ThemeMode>(
             showSelectedIcon: false,
             segments: const [
-              ButtonSegment(
-                value: ThemeMode.system,
-                label: Text('System'),
-                icon: Icon(Icons.brightness_auto),
-              ),
-              ButtonSegment(
-                value: ThemeMode.light,
-                label: Text('Light'),
-                icon: Icon(Icons.light_mode),
-              ),
-              ButtonSegment(
-                value: ThemeMode.dark,
-                label: Text('Dark'),
-                icon: Icon(Icons.dark_mode),
-              ),
+              ButtonSegment(value: ThemeMode.system, label: Text('System'), icon: Icon(Icons.brightness_auto)),
+              ButtonSegment(value: ThemeMode.light, label: Text('Light'), icon: Icon(Icons.light_mode)),
+              ButtonSegment(value: ThemeMode.dark, label: Text('Dark'), icon: Icon(Icons.dark_mode)),
             ],
             selected: {themeConfig.themeMode},
             onSelectionChanged: (Set<ThemeMode> newSelection) {
@@ -48,18 +53,9 @@ class ThemeScreen extends ConsumerWidget {
           SegmentedButton<ContrastLevel>(
             showSelectedIcon: false,
             segments: const [
-              ButtonSegment(
-                value: ContrastLevel.normal,
-                label: Text('Standard'),
-              ),
-              ButtonSegment(
-                value: ContrastLevel.medium,
-                label: Text('Medium'),
-              ),
-              ButtonSegment(
-                value: ContrastLevel.high,
-                label: Text('High'),
-              ),
+              ButtonSegment(value: ContrastLevel.normal, label: Text('Standard')),
+              ButtonSegment(value: ContrastLevel.medium, label: Text('Medium')),
+              ButtonSegment(value: ContrastLevel.high, label: Text('High')),
             ],
             selected: {themeConfig.contrastLevel},
             onSelectionChanged: (Set<ContrastLevel> newSelection) {
@@ -86,23 +82,12 @@ class ThemeScreen extends ConsumerWidget {
                     decoration: BoxDecoration(
                       color: color,
                       shape: BoxShape.circle,
-                      border: isSelected
-                          ? Border.all(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              width: 3,
-                            )
-                          : null,
+                      border: isSelected ? Border.all(color: Theme.of(context).colorScheme.onSurface, width: 3) : null,
                       boxShadow: [
-                        BoxShadow(
-                          color: color.withValues(alpha: 0.4),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
+                        BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 8, offset: const Offset(0, 2)),
                       ],
                     ),
-                    child: isSelected
-                        ? const Icon(Icons.check, color: Colors.white)
-                        : null,
+                    child: isSelected ? const Icon(Icons.check, color: Colors.white) : null,
                   ),
                 );
               }),

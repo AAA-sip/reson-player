@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../utils/shared_pref/export.dart';
+
+import '../../core/utils/shared_pref/shared_pref_keys.dart';
+import '../../core/utils/shared_pref/shared_pref_manager.dart';
 import '../model/theme_config.dart';
 
 class ThemeController extends Notifier<ThemeConfig> {

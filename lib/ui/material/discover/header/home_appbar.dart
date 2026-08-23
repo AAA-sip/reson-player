@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/route/app_router.dart';
-import '../../../../core/theme/theme_util.dart';
+import '../../../../route/material_router.dart';
+import '../../../../theme/theme_util.dart';
 
 class HomeAppBar extends StatelessWidget {
   final double scrollOffset;
@@ -87,14 +87,14 @@ class HomeAppBar extends StatelessWidget {
                     _buildActionWeight(
                       icon: Icons.search,
                       height: currentButtonHeight,
-                      onPressed: () => router.push(AppRoutes.search.path),
+                      onPressed: () => materialRouter.push(MaterialRoutes.search.path),
                       context: context,
                     ),
                     const SizedBox(width: 8),
                     _buildActionWeight(
                       icon: Icons.settings_outlined,
                       height: currentButtonHeight,
-                      onPressed: () => router.push(AppRoutes.settings.path),
+                      onPressed: () => materialRouter.push(MaterialRoutes.settings.path),
                       context: context,
                     ),
                   ],
