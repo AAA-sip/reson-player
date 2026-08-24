@@ -6,8 +6,20 @@ import 'package:easy_localization/easy_localization.dart';
 /// Typed accessors for localization keys.
 abstract final class Strings {
   Strings._();
+  static CommonStrings get common => const CommonStrings();
   static SettingsStrings get settings => const SettingsStrings();
   static LanguagePickerStrings get languagePicker => const LanguagePickerStrings();
+  static HomeStrings get home => const HomeStrings();
+  static SearchStrings get search => const SearchStrings();
+  static PlayerStrings get player => const PlayerStrings();
+  static ThemeStrings get theme => const ThemeStrings();
+}
+
+/// Section `common.*`.
+final class CommonStrings {
+  const CommonStrings();
+  String get error => 'common.error'.tr();
+  String get songs => 'common.songs'.tr();
 }
 
 /// Section `settings.*`.
@@ -34,4 +46,68 @@ final class SettingsStrings {
 final class LanguagePickerStrings {
   const LanguagePickerStrings();
   String get title => 'languagePicker.title'.tr();
+}
+
+/// Section `home.*`.
+final class HomeStrings {
+  const HomeStrings();
+  HomeActionsStrings get actions => const HomeActionsStrings();
+  HomeSectionsStrings get sections => const HomeSectionsStrings();
+  HomeEmptyStrings get empty => const HomeEmptyStrings();
+}
+
+/// Section `home.actions.*`.
+final class HomeActionsStrings {
+  const HomeActionsStrings();
+  String get history => 'home.actions.history'.tr();
+  String get stats => 'home.actions.stats'.tr();
+  String get favorites => 'home.actions.favorites'.tr();
+  String get collections => 'home.actions.collections'.tr();
+}
+
+/// Section `home.sections.*`.
+final class HomeSectionsStrings {
+  const HomeSectionsStrings();
+  String get albums => 'home.sections.albums'.tr();
+  String get artists => 'home.sections.artists'.tr();
+  String get tracks => 'home.sections.tracks'.tr();
+}
+
+/// Section `home.empty.*`.
+final class HomeEmptyStrings {
+  const HomeEmptyStrings();
+  String get artists => 'home.empty.artists'.tr();
+  String get songs => 'home.empty.songs'.tr();
+}
+
+/// Section `search.*`.
+final class SearchStrings {
+  const SearchStrings();
+  String get title => 'search.title'.tr();
+  String get screen => 'search.screen'.tr();
+}
+
+/// Section `player.*`.
+final class PlayerStrings {
+  const PlayerStrings();
+  String get empty => 'player.empty'.tr();
+}
+
+/// Section `theme.*`.
+final class ThemeStrings {
+  const ThemeStrings();
+  String get title => 'theme.title'.tr();
+  String get appStyle => 'theme.appStyle'.tr();
+  String get styleMaterial => 'theme.styleMaterial'.tr();
+  String get styleCupertino => 'theme.styleCupertino'.tr();
+  String get themeMode => 'theme.themeMode'.tr();
+  String get system => 'theme.system'.tr();
+  String get auto => 'theme.auto'.tr();
+  String get light => 'theme.light'.tr();
+  String get dark => 'theme.dark'.tr();
+  String get contrastLevel => 'theme.contrastLevel'.tr();
+  String get contrastStandard => 'theme.contrastStandard'.tr();
+  String get contrastMedium => 'theme.contrastMedium'.tr();
+  String get contrastHigh => 'theme.contrastHigh'.tr();
+  String get tintColor => 'theme.tintColor'.tr();
 }

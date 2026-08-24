@@ -1,4 +1,8 @@
 {
+  "common": {
+    "error": "Error",
+    "songs": "Songs"
+  },
   "settings": {
     "title": "Settings",
     "application": "Application",
@@ -18,5 +22,45 @@
   },
   "languagePicker": {
     "title": "Choose language"
+  },
+  "home": {
+    "actions": {
+      "history": "History",
+      "stats": "Stats",
+      "favorites": "Favorites",
+      "collections": "Collections"
+    },
+    "sections": {
+      "albums": "Albums & Playlists",
+      "artists": "Artists",
+      "tracks": "Tracks"
+    },
+    "empty": {
+      "artists": "No artists found.",
+      "songs": "No songs found."
+    }
+  },
+  "search": {
+    "title": "Search",
+    "screen": "Search Screen"
+  },
+  "player": {
+    "empty": "No song playing"
+  },
+  "theme": {
+    "title": "Appearance",
+    "appStyle": "App Style",
+    "styleMaterial": "Material",
+    "styleCupertino": "Cupertino",
+    "themeMode": "Theme Mode",
+    "system": "System",
+    "auto": "Auto",
+    "light": "Light",
+    "dark": "Dark",
+    "contrastLevel": "Contrast Level",
+    "contrastStandard": "Standard",
+    "contrastMedium": "Medium",
+    "contrastHigh": "High",
+    "tintColor": "Tint Color"
   }
 }

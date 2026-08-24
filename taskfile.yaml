@@ -9,3 +9,8 @@ tasks:
     desc: Generate typed localization keys from assets/local/en.json
     cmds:
       - dart run tool/generate_localization_keys.dart
+
+  l10n-check:
+    desc: Validate en.json and verify strings.g.dart is in sync
+    cmds:
+      - dart run tool/check_localization.dart

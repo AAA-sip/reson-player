@@ -49,3 +49,5 @@ app.*.map.json
 .skills/
 .env
 note
+AGENTS.md
+opencode.json

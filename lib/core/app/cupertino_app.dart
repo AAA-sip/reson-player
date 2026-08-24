@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../route/cupertino_router.dart';
+import '../../route/cupertino/cupertino_router.dart';
+import '../../theme/cupertino/theme_generator.dart';
 import '../../theme/provider/theme_provider.dart';
-import '../../theme/theme_generator.dart';
 
 class CupertinoResonApp extends ConsumerWidget {
   const CupertinoResonApp({super.key});

@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../route/material_router.dart';
+import '../../route/material/material_router.dart';
+import '../../theme/material/theme_generator.dart';
 import '../../theme/provider/theme_provider.dart';
-import '../../theme/theme_generator.dart';
 
 class MaterialResonApp extends ConsumerWidget {
   const MaterialResonApp({super.key});

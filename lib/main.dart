@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart'; // fuck this library
+import 'package:flutter/widgets.dart';
 
 import 'core/app/app.dart';
 import 'core/deps/bootstrap/bootstrap.dart';
 import 'core/deps/init.dart';
 
-/// UAHAHAH!!!
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -12,4 +11,3 @@ Future<void> main() async {
 
   runApp(const Bootstrap(app: ResonApp()));
 }
-//?
